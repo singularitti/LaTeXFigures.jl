@@ -2,6 +2,22 @@ module LaTeXFigures
 
 export Figure, latexformat
 
+const DEFAULT_INCLUDE_GRAPHICS_OPTIONS = (
+    angle=0,
+    origin="c",
+    width=0,
+    height=0,
+    totalheight=0,
+    keepaspectratio=false,
+    scale=1,
+    clip=false,
+    draft=false,
+    type="eps",
+    ext="eps",
+    read="eps",
+    quiet=true,
+    interpolate=false,
+)
 
 struct Figure
     path::String
@@ -13,6 +29,11 @@ struct Figure
     function Figure(path, caption, label, position, centering, options)
         if !isempty(position)
             @assert all(arg in ('!', 'h', 't', 'b', 'p', 'H') for arg in position)
+        end
+        for key in keys(options)
+            if key ∉ keys(DEFAULT_INCLUDE_GRAPHICS_OPTIONS)
+                throw(KeyError(key))
+            end
         end
         return new(
             string(path),
