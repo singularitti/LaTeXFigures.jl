@@ -82,7 +82,7 @@ uuid = "98e50ef6-434e-11e9-1051-2b60c6c9e899"
 version = "1.0.15"
 
 [[deps.LaTeXFigures]]
-git-tree-sha1 = "b1a62ee3f8a7dd202845939c4ffecc132290d5a5"
+git-tree-sha1 = "ba4d80e41e5edd26a48d7c613947d65ec1f1d1f0"
 repo-rev = "main"
 repo-url = "https://github.com/singularitti/LaTeXFigures.jl"
 uuid = "5d2f8d0c-8a3d-45b5-9848-1a5a591485bf"
