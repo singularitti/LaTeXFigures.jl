@@ -88,20 +88,29 @@ function IncludeGraphicsOptions(;
 end
 
 struct Figure
-    position::Symbol
-    options::FigureOptions
     path::String
     caption::String
     label::String
+    position::String
     centering::Bool
-    function Figure(position, options, path, caption, label, centering)
-        @assert position in (:h, :t, :b, :p, :H)
-        return new(position, options, path, caption, label, centering)
+    options::IncludeGraphicsOptions
+    function Figure(path, caption, label, position, centering, options)
+        if !isempty(position)
+            @assert all(arg in ('!', 'h', 't', 'b', 'p', 'H') for arg in position)
+        end
+        return new(
+            string(path),
+            string(caption),
+            string(label),
+            string(position),
+            centering,
+            options,
+        )
     end
 end
-function Figure(path; position=:h, caption="", label="", centering=true, kwargs...)
+function Figure(path; caption="", label="", position="", centering=true, kwargs...)
     return Figure(
-        position, IncludeGraphicsOptions(; kwargs...), path, caption, label, centering
+        path, caption, label, position, centering, IncludeGraphicsOptions(; kwargs...)
     )
 end
 
