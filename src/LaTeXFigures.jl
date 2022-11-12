@@ -93,7 +93,7 @@ struct Figure
     label::String
     position::String
     centering::Bool
-    options::IncludeGraphicsOptions
+    options::NamedTuple
     function Figure(path, caption, label, position, centering, options)
         if !isempty(position)
             @assert all(arg in ('!', 'h', 't', 'b', 'p', 'H') for arg in position)
@@ -109,9 +109,7 @@ struct Figure
     end
 end
 function Figure(path; caption="", label="", position="", centering=true, kwargs...)
-    return Figure(
-        path, caption, label, position, centering, IncludeGraphicsOptions(; kwargs...)
-    )
+    return Figure(path, caption, label, position, centering, NamedTuple(kwargs))
 end
 
 function Base.show(io::IO, figure::Figure)
