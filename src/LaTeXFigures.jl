@@ -25,7 +25,7 @@ struct Figure
     label::String
     position::String
     centering::Bool
-    options::NamedTuple
+    options::Base.Pairs
     function Figure(path, caption, label, position, centering, options)
         if !isempty(position)
             @assert all(arg in ('!', 'h', 't', 'b', 'p', 'H') for arg in position)
@@ -46,7 +46,7 @@ struct Figure
     end
 end
 function Figure(path; caption="", label="", position="", centering=true, kwargs...)
-    return Figure(path, caption, label, position, centering, NamedTuple(kwargs))
+    return Figure(path, caption, label, position, centering, kwargs)
 end
 
 function latexformat(figure::Figure; indent=' '^4, newline='\n')
