@@ -2,7 +2,7 @@ module LaTeXFigures
 
 export Figure
 
-struct FigureOptions
+struct IncludeGraphicsOptions
     angle::Float64
     origin::Symbol
     width::Number
@@ -17,7 +17,7 @@ struct FigureOptions
     read::String
     quiet::Bool
     interpolate::Bool
-    function FigureOptions(
+    function IncludeGraphicsOptions(
         angle,
         origin,
         width,
@@ -53,7 +53,7 @@ struct FigureOptions
         )
     end
 end
-function FigureOptions(;
+function IncludeGraphicsOptions(;
     angle=0,
     origin=:c,
     width=0,
@@ -69,7 +69,7 @@ function FigureOptions(;
     quiet=true,
     interpolate=false,
 )
-    return FigureOptions(
+    return IncludeGraphicsOptions(
         angle,
         origin,
         width,
@@ -100,7 +100,9 @@ struct Figure
     end
 end
 function Figure(path; position=:h, caption="", label="", centering=true, kwargs...)
-    return Figure(position, FigureOptions(; kwargs...), path, caption, label, centering)
+    return Figure(
+        position, IncludeGraphicsOptions(; kwargs...), path, caption, label, centering
+    )
 end
 
 function Base.show(io::IO, figure::Figure)
@@ -109,8 +111,8 @@ function Base.show(io::IO, figure::Figure)
         println(io, "\\centering")
     end
     print(io, "\\includegraphics[")
-    default = FigureOptions()
-    for option in fieldnames(FigureOptions)
+    default = IncludeGraphicsOptions()
+    for option in fieldnames(IncludeGraphicsOptions)
         value = getfield(figure.options, option)
         if getfield(figure.options, option) != getfield(default, option)
             print(io, string(option), '=', string(value), ", ")
