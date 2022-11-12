@@ -1,61 +1,10 @@
 module LaTeXFigures
 
-export Figure
+export Figure, latexformat
 
-struct FigureOptions
-    angle::Float64
-    origin::Symbol
-    width::Number
-    height::Number
-    totalheight::Number
-    keepaspectratio::Bool
-    scale::Float64
-    clip::Bool
-    draft::Bool
-    type::String
-    ext::String
-    read::String
-    quiet::Bool
-    interpolate::Bool
-    function FigureOptions(
-        angle,
-        origin,
-        width,
-        height,
-        totalheight,
-        keepaspectratio,
-        scale,
-        clip,
-        draft,
-        type,
-        ext,
-        read,
-        quiet,
-        interpolate,
-    )
-        @assert origin in (:c, :tr)
-        @assert width >= zero(width) && height >= zero(height)
-        return new(
-            angle,
-            origin,
-            width,
-            height,
-            totalheight,
-            keepaspectratio,
-            scale,
-            clip,
-            draft,
-            type,
-            ext,
-            read,
-            quiet,
-            interpolate,
-        )
-    end
-end
-function FigureOptions(;
+const DEFAULT_INCLUDE_GRAPHICS_OPTIONS = (
     angle=0,
-    origin=:c,
+    origin="c",
     width=0,
     height=0,
     totalheight=0,
@@ -69,58 +18,66 @@ function FigureOptions(;
     quiet=true,
     interpolate=false,
 )
-    return FigureOptions(
-        angle,
-        origin,
-        width,
-        height,
-        totalheight,
-        keepaspectratio,
-        scale,
-        clip,
-        draft,
-        type,
-        ext,
-        read,
-        quiet,
-        interpolate,
-    )
-end
 
 struct Figure
-    position::Symbol
-    options::FigureOptions
     path::String
     caption::String
     label::String
+    position::String
     centering::Bool
-    function Figure(position, options, path, caption, label, centering)
-        @assert position in (:h, :t, :b, :p, :H)
-        return new(position, options, path, caption, label, centering)
+    options::Base.Pairs
+    function Figure(path, caption, label, position, centering, options)
+        if !isempty(position)
+            @assert all(arg in ('!', 'h', 't', 'b', 'p', 'H') for arg in position)
+        end
+        for key in keys(options)
+            if key ∉ keys(DEFAULT_INCLUDE_GRAPHICS_OPTIONS)
+                throw(KeyError(key))
+            end
+        end
+        return new(
+            string(path),
+            string(caption),
+            string(label),
+            string(position),
+            centering,
+            options,
+        )
     end
 end
-function Figure(path; position=:h, caption="", label="", centering=true, kwargs...)
-    return Figure(position, FigureOptions(; kwargs...), path, caption, label, centering)
+function Figure(path; caption="", label="", position="", centering=true, kwargs...)
+    return Figure(path, caption, label, position, centering, kwargs)
 end
 
-function Base.show(io::IO, figure::Figure)
-    println(io, "\\begin{figure}[", string(figure.position), ']')
-    if figure.centering
-        println(io, "\\centering")
+function latexformat(figure::Figure; indent=' '^4, newline='\n')
+    str = raw"\begin{figure}"
+    if !isempty(figure.position)
+        str *= string('[', figure.position, ']')
     end
-    print(io, "\\includegraphics[")
-    default = FigureOptions()
-    for option in fieldnames(FigureOptions)
-        value = getfield(figure.options, option)
-        if getfield(figure.options, option) != getfield(default, option)
-            print(io, string(option), '=', string(value), ", ")
+    str *= newline
+    if figure.centering
+        str *= string(indent, raw"\centering", newline)
+    end
+    str *= string(indent, raw"\includegraphics")
+    if !isempty(figure.options)
+        str *= '['
+        for (n, (key, value)) in enumerate(pairs(figure.options))
+            if n == length(figure.options)
+                str *= string(key, '=', value)
+            else
+                str *= string(key, '=', value, ", ")
+            end
+        end
+        str *= ']'
+    end
+    str *= string('{', figure.path, '}', newline)
+    for (command, arg) in zip((raw"\caption", raw"\label"), (figure.caption, figure.label))
+        if !isempty(arg)
+            str *= string(indent, command, '{', arg, '}', newline)
         end
     end
-    println(io, "]{", figure.path, '}')
-    println(io, "\\caption{", figure.caption, '}')
-    println(io, "\\label{", figure.label, '}')
-    println(io, "\\end{figure}")
-    return nothing
+    str *= raw"\end{figure}"
+    return str
 end
 
 end
