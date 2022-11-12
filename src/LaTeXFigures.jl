@@ -20,6 +20,7 @@ const DEFAULT_INCLUDE_GRAPHICS_OPTIONS = (
 )
 
 struct Figure
+abstract type AbstractFigure end
     path::String
     caption::String
     label::String
