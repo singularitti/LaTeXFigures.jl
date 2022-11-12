@@ -169,5 +169,33 @@ function latexformat(figure::Subfigure; indent=' '^4, newline='\n')
     str *= string(indent, raw"\end{subfigure}")
     return str
 end
+function latexformat(figure::TwoSubfigures; indent=' '^4, newline='\n')
+    str = raw"\begin{figure}"
+    if !isempty(figure.position)
+        str *= string('[', figure.position, ']')
+    end
+    str *= newline
+    if figure.centering
+        str *= string(indent, raw"\centering", newline)
+    end
+    str *= join(
+        map(
+            subfigure -> latexformat(subfigure; indent=indent, newline=newline),
+            (figure.a, figure.b),
+        ),
+        if figure.hfill
+            string(newline, indent, raw"\hfill", newline)
+        else
+            ""
+        end,
+    )
+    for (command, arg) in zip((raw"\caption", raw"\label"), (figure.caption, figure.label))
+        if !isempty(arg)
+            str *= string(newline, indent, command, '{', arg, '}', newline)
+        end
+    end
+    str *= string(newline, raw"\end{figure}")
+    return str
+end
 
 end
