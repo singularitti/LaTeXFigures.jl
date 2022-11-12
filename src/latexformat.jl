@@ -13,6 +13,9 @@ function latexformat(figure::Figure; indent=' '^4, newline='\n')
     if !isempty(figure.options)
         str *= '['
         for (n, (key, value)) in enumerate(pairs(figure.options))
+            if key == :width
+                value = string(value, raw"\textwidth")
+            end
             if n == length(figure.options)
                 str *= string(key, '=', value)
             else
@@ -46,6 +49,9 @@ function latexformat(figure::Subfigure; indent=' '^4, newline='\n')
     if !isempty(figure.options)
         str *= '['
         for (n, (key, value)) in enumerate(pairs(figure.options))
+            if key == :width
+                value = string(value, raw"\linewidth")
+            end
             if n == length(figure.options)
                 str *= string(key, '=', value)
             else
