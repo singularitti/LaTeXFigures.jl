@@ -1,6 +1,6 @@
 module LaTeXFigures
 
-export Figure
+export Figure, latexformat
 
 
 struct Figure
@@ -28,24 +28,35 @@ function Figure(path; caption="", label="", position="", centering=true, kwargs.
     return Figure(path, caption, label, position, centering, NamedTuple(kwargs))
 end
 
-function Base.show(io::IO, figure::Figure)
-    println(io, "\\begin{figure}[", string(figure.position), ']')
-    if figure.centering
-        println(io, "\\centering")
+function latexformat(figure::Figure; indent=' '^4, newline='\n')
+    str = raw"\begin{figure}"
+    if !isempty(figure.position)
+        str *= string('[', figure.position, ']')
     end
-    print(io, "\\includegraphics[")
-    default = IncludeGraphicsOptions()
-    for option in fieldnames(IncludeGraphicsOptions)
-        value = getfield(figure.options, option)
-        if getfield(figure.options, option) != getfield(default, option)
-            print(io, string(option), '=', string(value), ", ")
+    str *= newline
+    if figure.centering
+        str *= string(indent, raw"\centering", newline)
+    end
+    str *= string(indent, raw"\includegraphics")
+    if !isempty(figure.options)
+        str *= '['
+        for (n, (key, value)) in enumerate(pairs(figure.options))
+            if n == length(figure.options)
+                str *= string(key, '=', value)
+            else
+                str *= string(key, '=', value, ", ")
+            end
+        end
+        str *= ']'
+    end
+    str *= string('{', figure.path, '}', newline)
+    for (command, arg) in zip((raw"\caption", raw"\label"), (figure.caption, figure.label))
+        if !isempty(arg)
+            str *= string(indent, command, '{', arg, '}', newline)
         end
     end
-    println(io, "]{", figure.path, '}')
-    println(io, "\\caption{", figure.caption, '}')
-    println(io, "\\label{", figure.label, '}')
-    println(io, "\\end{figure}")
-    return nothing
+    str *= raw"\end{figure}"
+    return str
 end
 
 end
