@@ -19,8 +19,8 @@ const DEFAULT_INCLUDE_GRAPHICS_OPTIONS = (
     interpolate=false,
 )
 
-struct Figure
 abstract type AbstractFigure end
+struct Figure <: AbstractFigure
     path::String
     caption::String
     label::String
@@ -50,7 +50,7 @@ function Figure(path; caption="", label="", position="", centering=true, kwargs.
     return Figure(path, caption, label, position, centering, kwargs)
 end
 
-struct Subfigure
+struct Subfigure <: AbstractFigure
     path::String
     width::Float64
     height::Float64
