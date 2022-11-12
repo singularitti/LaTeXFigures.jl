@@ -116,5 +116,38 @@ function latexformat(figure::Figure; indent=' '^4, newline='\n')
     str *= raw"\end{figure}"
     return str
 end
+function latexformat(figure::Subfigure; indent=' '^4, newline='\n')
+    str = string(indent, raw"\begin{subfigure}")
+    if !isempty(figure.position)
+        str *= string('[', figure.position, ']')
+    end
+    if !iszero(figure.height)
+        str *= string('[', figure.height, "]")
+    end
+    str *= string('{', figure.width, raw"\textwidth", '}', newline)
+    if figure.centering
+        str *= string(indent^2, raw"\centering", newline)
+    end
+    str *= string(indent^2, raw"\includegraphics")
+    if !isempty(figure.options)
+        str *= '['
+        for (n, (key, value)) in enumerate(pairs(figure.options))
+            if n == length(figure.options)
+                str *= string(key, '=', value)
+            else
+                str *= string(key, '=', value, ", ")
+            end
+        end
+        str *= ']'
+    end
+    str *= string('{', figure.path, '}', newline)
+    for (command, arg) in zip((raw"\caption", raw"\label"), (figure.caption, figure.label))
+        if !isempty(arg)
+            str *= string(indent^2, command, '{', arg, '}', newline)
+        end
+    end
+    str *= string(indent, raw"\end{subfigure}")
+    return str
+end
 
 end
