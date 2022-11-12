@@ -35,10 +35,10 @@ function latexformat(figure::Subfigure; indent=' '^4, newline='\n')
     if !isempty(figure.position)
         str *= string('[', figure.position, ']')
     end
-    if !iszero(figure.height)
-        str *= string('[', figure.height, "]")
+    if !iszero(figure.h)
+        str *= string('[', figure.h, "]")
     end
-    str *= string('{', figure.width, raw"\textwidth", '}', newline)
+    str *= string('{', figure.w, raw"\textwidth", '}', newline)
     if figure.centering
         str *= string(indent^2, raw"\centering", newline)
     end

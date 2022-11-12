@@ -50,18 +50,18 @@ end
 
 struct Subfigure <: AbstractFigure
     path::String
-    width::Float64
-    height::Float64
+    w::Float64
+    h::Float64
     caption::String
     label::String
     position::String
     centering::Bool
     options::Base.Pairs
-    function Subfigure(path, width, height, caption, label, position, centering, options)
+    function Subfigure(path, w, h, caption, label, position, centering, options)
         if !isempty(position)
             @assert all(arg in ('c', 't', 'b', 'T', 'B') for arg in position)
         end
-        @assert width > 0 && height >= 0
+        @assert w > 0 && h >= 0
         for key in keys(options)
             if key ∉ keys(DEFAULT_INCLUDE_GRAPHICS_OPTIONS)
                 throw(KeyError(key))
@@ -69,8 +69,8 @@ struct Subfigure <: AbstractFigure
         end
         return new(
             string(path),
-            width,
-            height,
+            w,
+            h,
             string(caption),
             string(label),
             string(position),
@@ -80,9 +80,9 @@ struct Subfigure <: AbstractFigure
     end
 end
 function Subfigure(
-    path, width; height=0, caption="", label="", position="", centering=true, kwargs...
+    path, w; h=0, caption="", label="", position="", centering=true, kwargs...
 )
-    return Subfigure(path, width, height, caption, label, position, centering, kwargs)
+    return Subfigure(path, w, h, caption, label, position, centering, kwargs)
 end
 
 struct TwoSubfigures <: AbstractFigure
