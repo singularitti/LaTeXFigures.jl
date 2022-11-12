@@ -1,6 +1,6 @@
 module LaTeXFigures
 
-export Figure, Subfigure, latexformat
+export Figure, Subfigure, TwoSubfigures, latexformat
 
 const DEFAULT_INCLUDE_GRAPHICS_OPTIONS = (
     angle=0,
@@ -85,6 +85,25 @@ function Subfigure(
     path, width; height=0, caption="", label="", position="", centering=true, kwargs...
 )
     return Subfigure(path, width, height, caption, label, position, centering, kwargs)
+end
+
+struct TwoSubfigures <: AbstractFigure
+    a::Subfigure
+    b::Subfigure
+    caption::String
+    label::String
+    position::String
+    centering::Bool
+    hfill::Bool
+    function TwoSubfigures(a, b, caption, label, position, centering, hfill)
+        if !isempty(position)
+            @assert all(arg in ('!', 'h', 't', 'b', 'p', 'H') for arg in position)
+        end
+        return new(a, b, string(caption), string(label), string(position), centering, hfill)
+    end
+end
+function TwoSubfigures(a, b; caption="", label="", position="", centering=true, hfill=true)
+    return TwoSubfigures(a, b, caption, label, position, centering, hfill)
 end
 
 function latexformat(figure::Figure; indent=' '^4, newline='\n')
