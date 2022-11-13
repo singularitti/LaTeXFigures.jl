@@ -37,7 +37,7 @@ struct Figure <: AbstractFigure
     label::String
     position::Vector{Position}
     centering::Bool
-    options::Base.Pairs
+    options::Iterators.Pairs
     function Figure(path, caption, label, position, centering, options)
         for key in keys(options)
             if key ∉ keys(DEFAULT_INCLUDE_GRAPHICS_OPTIONS)
@@ -65,7 +65,7 @@ struct Subfigure <: AbstractFigure
     label::String
     position::Vector{Position}
     centering::Bool
-    options::Base.Pairs
+    options::Iterators.Pairs
     function Subfigure(path, w, h, caption, label, position, centering, options)
         @assert w > 0 && h >= 0
         for key in keys(options)
