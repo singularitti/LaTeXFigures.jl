@@ -3,7 +3,7 @@ export latexformat
 function latexformat(figure::Figure; indent=' '^4, newline='\n')
     str = raw"\begin{figure}"
     if !isempty(figure.position)
-        str *= string('[', figure.position, ']')
+        str *= string(figure.position)
     end
     str *= newline
     if figure.centering
@@ -14,7 +14,7 @@ function latexformat(figure::Figure; indent=' '^4, newline='\n')
         str *= '['
         for (n, (key, value)) in enumerate(pairs(figure.options))
             if key == :width
-                value = string(value, raw"\textwidth")
+                value = value isa Real ? string(value, raw"\textwidth") : string(value)  # Works for unitful values
             end
             if n == length(figure.options)
                 str *= string(key, '=', value)
@@ -36,7 +36,7 @@ end
 function latexformat(figure::Subfigure; indent=' '^4, newline='\n')
     str = string(indent, raw"\begin{subfigure}")
     if !isempty(figure.position)
-        str *= string('[', figure.position, ']')
+        str *= string(figure.position)
     end
     if !iszero(figure.h)
         str *= string('[', figure.h, "]")
@@ -50,7 +50,7 @@ function latexformat(figure::Subfigure; indent=' '^4, newline='\n')
         str *= '['
         for (n, (key, value)) in enumerate(pairs(figure.options))
             if key == :width
-                value = string(value, raw"\linewidth")
+                value = value isa Real ? string(value, raw"\linewidth") : string(value)  # Works for unitful values
             end
             if n == length(figure.options)
                 str *= string(key, '=', value)
@@ -72,7 +72,7 @@ end
 function latexformat(figure::TwoSubfigures; indent=' '^4, newline='\n')
     str = raw"\begin{figure}"
     if !isempty(figure.position)
-        str *= string('[', figure.position, ']')
+        str *= string(figure.position)
     end
     str *= newline
     if figure.centering

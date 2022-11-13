@@ -1,3 +1,47 @@
+using Unitful: @u_str
+
+# Examples from https://www.overleaf.com/learn/latex/Inserting_Images
+@testset "Test formatting a figure" begin
+    @testset "With position" begin
+        figure = Figure("Plot"; position=[top], width=8u"cm")
+        @test latexformat(figure; indent=' '^4) == raw"""\begin{figure}[t]
+            \centering
+            \includegraphics[width=8 cm]{Plot}
+        \end{figure}"""
+    end
+    @testset "Without position" begin
+        figure = Figure("Plot"; position=[], width=8u"cm")
+        @test latexformat(figure; indent=' '^4) == raw"""\begin{figure}
+            \centering
+            \includegraphics[width=8 cm]{Plot}
+        \end{figure}"""
+    end
+    @testset "Without label" begin
+        figure = Figure(
+            "spiral";
+            caption=raw"Example of a parametric plot ($\sin (x), \cos(x), x$)",
+            position=[bottom],
+            width=0.5,
+        )
+        @test latexformat(figure; indent=' '^4) == raw"""\begin{figure}[b]
+            \centering
+            \includegraphics[width=0.5\textwidth]{spiral}
+            \caption{Example of a parametric plot ($\sin (x), \cos(x), x$)}
+        \end{figure}"""
+    end
+    @testset "With label" begin
+        figure = Figure(
+            "mesh"; caption="a nice plot", label="fig:mesh1", position=[top], width=0.25
+        )
+        @test latexformat(figure; indent=' '^4) == raw"""\begin{figure}[t]
+            \centering
+            \includegraphics[width=0.25\textwidth]{mesh}
+            \caption{a nice plot}
+            \label{fig:mesh1}
+        \end{figure}"""
+    end
+end
+
 # Example from https://tex.stackexchange.com/a/37597
 @testset "Test formatting two subfigures" begin
     figure1 = Subfigure("image1", 0.6; caption="A subfigure", label="fig:sub1", width=0.4)

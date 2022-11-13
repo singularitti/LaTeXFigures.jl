@@ -1,4 +1,4 @@
-export Figure, Subfigure, TwoSubfigures
+export Figure, Subfigure, TwoSubfigures, here, top, bottom, page, override, Here
 
 const DEFAULT_INCLUDE_GRAPHICS_OPTIONS = (
     angle=0,
@@ -17,34 +17,28 @@ const DEFAULT_INCLUDE_GRAPHICS_OPTIONS = (
     interpolate=false,
 )
 
+@enum Position here top bottom page override Here
+
 abstract type AbstractFigure end
 struct Figure <: AbstractFigure
     path::String
     caption::String
     label::String
-    position::String
+    position::Vector{Position}
     centering::Bool
     options::Base.Pairs
     function Figure(path, caption, label, position, centering, options)
-        if !isempty(position)
-            @assert all(arg in ('!', 'h', 't', 'b', 'p', 'H') for arg in position)
-        end
         for key in keys(options)
             if key ∉ keys(DEFAULT_INCLUDE_GRAPHICS_OPTIONS)
                 throw(KeyError(key))
             end
         end
         return new(
-            string(path),
-            string(caption),
-            string(label),
-            string(position),
-            centering,
-            options,
+            string(path), string(caption), string(label), position, centering, options
         )
     end
 end
-function Figure(path; caption="", label="", position="", centering=true, kwargs...)
+function Figure(path; caption="", label="", position=Position[], centering=true, kwargs...)
     return Figure(path, caption, label, position, centering, kwargs)
 end
 
@@ -54,13 +48,10 @@ struct Subfigure <: AbstractFigure
     h::Float64
     caption::String
     label::String
-    position::String
+    position::Vector{Position}
     centering::Bool
     options::Base.Pairs
     function Subfigure(path, w, h, caption, label, position, centering, options)
-        if !isempty(position)
-            @assert all(arg in ('c', 't', 'b', 'T', 'B') for arg in position)
-        end
         @assert w > 0 && h >= 0
         for key in keys(options)
             if key ∉ keys(DEFAULT_INCLUDE_GRAPHICS_OPTIONS)
@@ -68,19 +59,12 @@ struct Subfigure <: AbstractFigure
             end
         end
         return new(
-            string(path),
-            w,
-            h,
-            string(caption),
-            string(label),
-            string(position),
-            centering,
-            options,
+            string(path), w, h, string(caption), string(label), position, centering, options
         )
     end
 end
 function Subfigure(
-    path, w; h=0, caption="", label="", position="", centering=true, kwargs...
+    path, w; h=0, caption="", label="", position=Position[], centering=true, kwargs...
 )
     return Subfigure(path, w, h, caption, label, position, centering, kwargs)
 end
@@ -90,16 +74,34 @@ struct TwoSubfigures <: AbstractFigure
     b::Subfigure
     caption::String
     label::String
-    position::String
+    position::Vector{Position}
     centering::Bool
     hfill::Bool
     function TwoSubfigures(a, b, caption, label, position, centering, hfill)
-        if !isempty(position)
-            @assert all(arg in ('!', 'h', 't', 'b', 'p', 'H') for arg in position)
-        end
-        return new(a, b, string(caption), string(label), string(position), centering, hfill)
+        return new(a, b, string(caption), string(label), position, centering, hfill)
     end
 end
-function TwoSubfigures(a, b; caption="", label="", position="", centering=true, hfill=true)
+function TwoSubfigures(
+    a, b; caption="", label="", position=Position[], centering=true, hfill=true
+)
     return TwoSubfigures(a, b, caption, label, position, centering, hfill)
 end
+
+function Base.string(position::Position)
+    if position == override
+        return "!"
+    elseif position == here
+        return "h"
+    elseif position == top
+        return "t"
+    elseif position == bottom
+        return "b"
+    elseif position == page
+        return "p"
+    elseif position == Here
+        return "H"
+    else
+        throw(ArgumentError("this should never happen!"))
+    end
+end
+Base.string(positions::Vector{Position}) = '[' * join(string.(positions)) * ']'
