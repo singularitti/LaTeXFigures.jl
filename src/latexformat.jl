@@ -3,7 +3,7 @@ export latexformat
 function latexformat(figure::Figure; indent=' '^4, newline='\n')
     str = raw"\begin{figure}"
     if !isempty(figure.position)
-        str *= string('[', figure.position, ']')
+        str *= string(figure.position)
     end
     str *= newline
     if figure.centering
@@ -36,7 +36,7 @@ end
 function latexformat(figure::Subfigure; indent=' '^4, newline='\n')
     str = string(indent, raw"\begin{subfigure}")
     if !isempty(figure.position)
-        str *= string('[', figure.position, ']')
+        str *= string(figure.position)
     end
     if !iszero(figure.h)
         str *= string('[', figure.h, "]")
@@ -72,7 +72,7 @@ end
 function latexformat(figure::TwoSubfigures; indent=' '^4, newline='\n')
     str = raw"\begin{figure}"
     if !isempty(figure.position)
-        str *= string('[', figure.position, ']')
+        str *= string(figure.position)
     end
     str *= newline
     if figure.centering
