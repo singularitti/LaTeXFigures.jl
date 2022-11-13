@@ -87,4 +87,21 @@ function TwoSubfigures(
     return TwoSubfigures(a, b, caption, label, position, centering, hfill)
 end
 
-Base.string(position::Position) = position == override ? "!" : first(string(position))
+function Base.string(position::Position)
+    if position == override
+        return "!"
+    elseif position == here
+        return "h"
+    elseif position == top
+        return "t"
+    elseif position == bottom
+        return "b"
+    elseif position == page
+        return "p"
+    elseif position == Here
+        return "H"
+    else
+        throw(ArgumentError("this should never happen!"))
+    end
+end
+Base.string(positions::Vector{Position}) = '[' * join(string.(positions)) * ']'
