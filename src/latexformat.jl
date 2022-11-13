@@ -13,6 +13,9 @@ function latexformat(figure::Figure; indent=' '^4, newline='\n')
     if !isempty(figure.options)
         str *= '['
         for (n, (key, value)) in enumerate(pairs(figure.options))
+            if key == :width
+                value = string(value, raw"\textwidth")
+            end
             if n == length(figure.options)
                 str *= string(key, '=', value)
             else
@@ -35,10 +38,10 @@ function latexformat(figure::Subfigure; indent=' '^4, newline='\n')
     if !isempty(figure.position)
         str *= string('[', figure.position, ']')
     end
-    if !iszero(figure.height)
-        str *= string('[', figure.height, "]")
+    if !iszero(figure.h)
+        str *= string('[', figure.h, "]")
     end
-    str *= string('{', figure.width, raw"\textwidth", '}', newline)
+    str *= string('{', figure.w, raw"\textwidth", '}', newline)
     if figure.centering
         str *= string(indent^2, raw"\centering", newline)
     end
@@ -46,6 +49,9 @@ function latexformat(figure::Subfigure; indent=' '^4, newline='\n')
     if !isempty(figure.options)
         str *= '['
         for (n, (key, value)) in enumerate(pairs(figure.options))
+            if key == :width
+                value = string(value, raw"\linewidth")
+            end
             if n == length(figure.options)
                 str *= string(key, '=', value)
             else
@@ -77,17 +83,16 @@ function latexformat(figure::TwoSubfigures; indent=' '^4, newline='\n')
             subfigure -> latexformat(subfigure; indent=indent, newline=newline),
             (figure.a, figure.b),
         ),
-        if figure.hfill
-            string(newline, indent, raw"\hfill", newline)
-        else
-            ""
+        newline * begin
+            figure.hfill ? string(indent, raw"\hfill", newline) : ""
         end,
     )
+    str *= newline
     for (command, arg) in zip((raw"\caption", raw"\label"), (figure.caption, figure.label))
         if !isempty(arg)
-            str *= string(newline, indent, command, '{', arg, '}', newline)
+            str *= string(indent, command, '{', arg, '}', newline)
         end
     end
-    str *= string(newline, raw"\end{figure}")
+    str *= raw"\end{figure}"
     return str
 end
