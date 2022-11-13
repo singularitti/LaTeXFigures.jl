@@ -14,7 +14,7 @@ function latexformat(figure::Figure; indent=' '^4, newline='\n')
         str *= '['
         for (n, (key, value)) in enumerate(pairs(figure.options))
             if key == :width
-                value = string(value, raw"\textwidth")
+                value = value isa Real ? string(value, raw"\textwidth") : string(value)  # Works for unitful values
             end
             if n == length(figure.options)
                 str *= string(key, '=', value)
@@ -50,7 +50,7 @@ function latexformat(figure::Subfigure; indent=' '^4, newline='\n')
         str *= '['
         for (n, (key, value)) in enumerate(pairs(figure.options))
             if key == :width
-                value = string(value, raw"\linewidth")
+                value = value isa Real ? string(value, raw"\textwidth") : string(value)  # Works for unitful values
             end
             if n == length(figure.options)
                 str *= string(key, '=', value)
