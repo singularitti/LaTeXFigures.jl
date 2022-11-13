@@ -17,9 +17,20 @@ const DEFAULT_INCLUDE_GRAPHICS_OPTIONS = (
     interpolate=false,
 )
 
+"""
+    Position(n)
+
+Represent the position of the figure, available values are `here`, `top`, `bottom`,
+`page`, `override`, `Here`.
+"""
 @enum Position here top bottom page override Here
 
 abstract type AbstractFigure end
+"""
+    Figure(path, caption, label, position, centering, options)
+
+Represent a single figure.
+"""
 struct Figure <: AbstractFigure
     path::String
     caption::String
@@ -41,7 +52,11 @@ end
 function Figure(path; caption="", label="", position=Position[], centering=true, kwargs...)
     return Figure(path, caption, label, position, centering, kwargs)
 end
+"""
+    Subfigure(path, w, h, caption, label, position, centering, options)
 
+Represent a subfigure within a figure.
+"""
 struct Subfigure <: AbstractFigure
     path::String
     w::Float64
@@ -68,7 +83,11 @@ function Subfigure(
 )
     return Subfigure(path, w, h, caption, label, position, centering, kwargs)
 end
+"""
+    TwoSubfigures(a, b, caption, label, position, centering, hfill)
 
+Represent a figure with two subfigures `a` and `b`.
+"""
 struct TwoSubfigures <: AbstractFigure
     a::Subfigure
     b::Subfigure
