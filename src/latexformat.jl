@@ -83,17 +83,16 @@ function latexformat(figure::TwoSubfigures; indent=' '^4, newline='\n')
             subfigure -> latexformat(subfigure; indent=indent, newline=newline),
             (figure.a, figure.b),
         ),
-        if figure.hfill
-            string(newline, indent, raw"\hfill", newline)
-        else
-            ""
+        newline * begin
+            figure.hfill ? string(indent, raw"\hfill", newline) : ""
         end,
     )
+    str *= newline
     for (command, arg) in zip((raw"\caption", raw"\label"), (figure.caption, figure.label))
         if !isempty(arg)
-            str *= string(newline, indent, command, '{', arg, '}', newline)
+            str *= string(indent, command, '{', arg, '}', newline)
         end
     end
-    str *= string(newline, raw"\end{figure}")
+    str *= raw"\end{figure}"
     return str
 end
