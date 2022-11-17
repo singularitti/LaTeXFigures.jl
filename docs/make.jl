@@ -30,4 +30,5 @@ makedocs(;
 
 deploydocs(;
     repo="github.com/singularitti/LaTeXFigures.jl",
+    devbranch="main",
 )
