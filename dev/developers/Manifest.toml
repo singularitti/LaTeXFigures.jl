@@ -1,6 +1,6 @@
 # This file is machine-generated - editing it directly is not advised
 
-julia_version = "1.12.5"
+julia_version = "1.12.6"
 manifest_format = "2.0"
 project_hash = "0f8b6d5edc9c730edf57096728ecd5c9250218e8"
 
@@ -40,7 +40,7 @@ uuid = "70703baa-626e-46a2-a12c-08ffd08c73b4"
 version = "0.4.10"
 
 [[deps.LaTeXFigures]]
-git-tree-sha1 = "06828c1dd355c9e8f389b9dbee53ce62033153cc"
+git-tree-sha1 = "ba47edae3d6a83e5fe0ce1839f39d22767b35aaa"
 repo-rev = "main"
 repo-url = "https://github.com/singularitti/LaTeXFigures.jl"
 uuid = "5d2f8d0c-8a3d-45b5-9848-1a5a591485bf"
