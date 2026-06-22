@@ -3,21 +3,21 @@
    Installed RegistryInstances ─────── v0.1.0
    Installed Expat_jll ─────────────── v2.8.1+0
    Installed JSON ──────────────────── v1.6.1
-   Installed MarkdownAST ───────────── v0.1.3
-   Installed IOCapture ─────────────── v1.0.0
    Installed Libiconv_jll ──────────── v1.18.0+0
    Installed AbstractTrees ─────────── v0.4.5
-   Installed Git_jll ───────────────── v2.54.0+0
-   Installed JLLWrappers ───────────── v1.8.0
    Installed TranscodingStreams ────── v0.11.3
+   Installed JLLWrappers ───────────── v1.8.0
    Installed Git_LFS_jll ───────────── v3.7.1+0
+   Installed Git_jll ───────────────── v2.54.0+0
    Installed CodecZlib ─────────────── v0.7.8
-   Installed OpenSSH_jll ───────────── v10.3.1+0
-   Installed Git ───────────────────── v1.5.0
+   Installed LazilyInitializedFields ─ v1.3.0
+   Installed IOCapture ─────────────── v1.0.0
+   Installed MarkdownAST ───────────── v0.1.3
    Installed StructUtils ───────────── v2.8.2
    Installed DocStringExtensions ───── v0.9.5
-   Installed LazilyInitializedFields ─ v1.3.0
    Installed Documenter ────────────── v1.17.0
+   Installed OpenSSH_jll ───────────── v10.3.1+0
+   Installed Git ───────────────────── v1.5.0
   Installing 5 artifacts
    Installed artifact Expat    288.6 KiB
    Installed artifact Libiconv 1.9 MiB
@@ -37,7 +37,7 @@
   [682c06a0] ↑ JSON v0.21.3 ⇒ v1.6.1 [loaded: v0.21.3]
   [0e77f7df] + LazilyInitializedFields v1.3.0
   [d0879d2d] + MarkdownAST v0.1.3
-  [69de0a69] ↑ Parsers v2.5.0 ⇒ v2.8.5 [loaded: v2.5.0]
+  [69de0a69] ↑ Parsers v2.5.0 ⇒ v2.8.6 [loaded: v2.5.0]
   [aea7be01] + PrecompileTools v1.3.4
   [21216c6a] + Preferences v1.5.2
   [2792f1a3] + RegistryInstances v0.1.0
@@ -66,25 +66,25 @@
   [8e850ede] + nghttp2_jll v1.64.0+1
   [3f19e933] + p7zip_jll v17.7.0+0
 Precompiling packages...
-    802.4 ms  ✓ AbstractTrees
-    779.0 ms  ✓ IOCapture
-    989.4 ms  ✓ LazilyInitializedFields
-   1083.4 ms  ✓ DocStringExtensions
-   1190.6 ms  ✓ TranscodingStreams
-   1189.0 ms  ✓ JLLWrappers
-   1119.1 ms  ✓ CodecZlib
-   1677.6 ms  ✓ MarkdownAST
-   1457.8 ms  ✓ OpenSSH_jll
-   1431.5 ms  ✓ Libiconv_jll
-   2725.3 ms  ✓ RegistryInstances
-   3080.5 ms  ✓ StructUtils
-   1407.6 ms  ✓ Expat_jll
-   1107.9 ms  ✓ Git_LFS_jll
-    822.4 ms  ✓ Git_jll
-    443.7 ms  ✓ Git
-   4972.7 ms  ✓ JSON
-  33176.3 ms  ✓ Documenter
-  18 dependencies successfully precompiled in 42 seconds. 37 already precompiled.
+    719.0 ms  ✓ LazilyInitializedFields
+    838.9 ms  ✓ IOCapture
+    908.4 ms  ✓ DocStringExtensions
+   1354.8 ms  ✓ AbstractTrees
+   1343.9 ms  ✓ TranscodingStreams
+    832.5 ms  ✓ JLLWrappers
+   1365.0 ms  ✓ CodecZlib
+   1176.9 ms  ✓ OpenSSH_jll
+   1556.6 ms  ✓ MarkdownAST
+   2441.4 ms  ✓ RegistryInstances
+   1030.8 ms  ✓ Libiconv_jll
+   3178.4 ms  ✓ StructUtils
+   1160.8 ms  ✓ Expat_jll
+   1169.1 ms  ✓ Git_LFS_jll
+    699.8 ms  ✓ Git_jll
+    452.1 ms  ✓ Git
+   4822.1 ms  ✓ JSON
+  32541.7 ms  ✓ Documenter
+  18 dependencies successfully precompiled in 41 seconds. 37 already precompiled.
   4 dependencies precompiled but different versions are currently loaded. Restart julia to access the new versions. Otherwise, loading dependents of these packages may trigger further precompilation to work with the unexpected versions.
         Info We haven&#39;t cleaned this depot up for a bit, running Pkg.gc()...
       Active manifest files: 3 found
@@ -96,7 +96,7 @@ Precompiling packages...
   [5d2f8d0c] ~ LaTeXFigures v0.1.0 `~/work/LaTeXFigures.jl/LaTeXFigures.jl` ⇒ v0.1.0 `~/.julia/dev/LaTeXFigures` [loaded: `/home/runner/work/LaTeXFigures.jl/LaTeXFigures.jl/src/LaTeXFigures.jl` (v0.1.0) expected `/home/runner/.julia/dev/LaTeXFigures/src/LaTeXFigures.jl` (v0.1.0)]
     Updating `~/work/LaTeXFigures.jl/LaTeXFigures.jl/docs/Manifest.toml`
   [5d2f8d0c] ~ LaTeXFigures v0.1.0 `~/work/LaTeXFigures.jl/LaTeXFigures.jl` ⇒ v0.1.0 `~/.julia/dev/LaTeXFigures` [loaded: `/home/runner/work/LaTeXFigures.jl/LaTeXFigures.jl/src/LaTeXFigures.jl` (v0.1.0) expected `/home/runner/.julia/dev/LaTeXFigures/src/LaTeXFigures.jl` (v0.1.0)]</code></pre><p>Then the package will be cloned to your local machine. On *nix systems, the default path is <code>~/.julia/dev/LaTeXFigures</code> unless you modify the <a href="http://docs.julialang.org/en/v1/manual/environment-variables/#JULIA_DEPOT_PATH-1"><code>JULIA_DEPOT_PATH</code></a> environment variable. If you&#39;re on Windows, this will be <code>C:\\Users\\&lt;my_name&gt;\\.julia\\dev\\LaTeXFigures</code>. In the following text, we will call it <code>PKGROOT</code>.</p><p>Go to <code>PKGROOT</code>, start a new Julia session and run</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; using Pkg</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; Pkg.instantiate()</code><code class="nohighlight hljs ansi" style="display:block;">Precompiling packages...
-    506.3 ms  ✓ LaTeXFigures
+    536.7 ms  ✓ LaTeXFigures
   1 dependency successfully precompiled in 1 seconds. 54 already precompiled.
   1 dependency precompiled but a different version is currently loaded. Restart julia to access the new version. Otherwise, loading dependents of this package may trigger further precompilation to work with the unexpected version.</code></pre><p>to instantiate the project.</p><h3 id="Step-4:-checkout-a-new-branch"><a class="docs-heading-anchor" href="#Step-4:-checkout-a-new-branch">Step 4: checkout a new branch</a><a id="Step-4:-checkout-a-new-branch-1"></a><a class="docs-heading-anchor-permalink" href="#Step-4:-checkout-a-new-branch" title="Permalink"></a></h3><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>In the following, replace any instance of <code>GITHUB_ACCOUNT</code> with your GitHub username.</p></div></div><p>The next step is to checkout a development branch. In a terminal (or command prompt on Windows), run:</p><pre><code class="language-shell hljs">cd ~/.julia/dev/LaTeXFigures
 
@@ -118,4 +118,4 @@ git push -u GITHUB_ACCOUNT my_new_branch</code></pre><p>Then go to <a href="http
 
 git checkout main
 
-git pull</code></pre><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>If you have suggestions to improve this guide, please make a pull request! It&#39;s particularly helpful if you do this after your first pull request because you&#39;ll know all the parts that could be explained better.</p></div></div><p>Thanks for contributing to <code>LaTeXFigures</code>!</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../public/">« API Reference</a><a class="docs-footer-nextpage" href="../style/">Style Guide »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.23 on <span class="colophon-date" title="Monday 8 June 2026 08:25">Monday 8 June 2026</span>. Using Julia version 1.12.6.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+git pull</code></pre><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>If you have suggestions to improve this guide, please make a pull request! It&#39;s particularly helpful if you do this after your first pull request because you&#39;ll know all the parts that could be explained better.</p></div></div><p>Thanks for contributing to <code>LaTeXFigures</code>!</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../public/">« API Reference</a><a class="docs-footer-nextpage" href="../style/">Style Guide »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.23 on <span class="colophon-date" title="Monday 22 June 2026 02:32">Monday 22 June 2026</span>. Using Julia version 1.12.6.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

@@ -39,9 +39,9 @@ version = "1.11.0"
 
 [[deps.JuliaFormatter]]
 deps = ["CommonMark", "Glob", "JuliaSyntax", "PrecompileTools", "TOML", "Test"]
-git-tree-sha1 = "8592c3b4bf65ca81289cc7c1a746f4be3db89828"
+git-tree-sha1 = "758f33f3bf5767fcbd6233a12ebfbaad09dcb7b4"
 uuid = "98e50ef6-434e-11e9-1051-2b60c6c9e899"
-version = "2.6.4"
+version = "2.9.3"
 
 [[deps.JuliaSyntax]]
 git-tree-sha1 = "0d4b3dab95018bcf3925204475693d9f09dc45b8"
@@ -54,7 +54,7 @@ uuid = "ac6e5ff7-fb65-4e79-a425-ec3bc9c03011"
 version = "1.12.0"
 
 [[deps.LaTeXFigures]]
-git-tree-sha1 = "963baae2e923115fc787d572b8e789d9fada30cf"
+git-tree-sha1 = "d6635db133116907095c25390cceec1cac6c86ac"
 repo-rev = "main"
 repo-url = "https://github.com/singularitti/LaTeXFigures.jl"
 uuid = "5d2f8d0c-8a3d-45b5-9848-1a5a591485bf"
